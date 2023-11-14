@@ -16,7 +16,6 @@ const ItemDetailContainer = () => {
           `https://pokeapi.co/api/v2/pokemon/${idPokemon}`
         );
         const data = await response.json();
-        console.log(data.types[0].type.name);
         setPokemonData({
           id: data.id,
           name: data.name,

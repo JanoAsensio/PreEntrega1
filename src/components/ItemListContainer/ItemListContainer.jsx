@@ -1,7 +1,7 @@
 import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useState } from "react";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // Components:
 import Item from "../Item/Item";
@@ -9,7 +9,7 @@ import Loading from "../Loading/Loading";
 
 const ItemListContainer = () => {
   const [pokemonData, setPokemonData] = useState([]);
-  // const { idPokemon } = useParams();
+  const { idPokemon } = useParams();
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -31,21 +31,21 @@ const ItemListContainer = () => {
 
         const mappedPokemon = await Promise.all(promises);
 
-        // if (idPokemon) {
-        //   const filtersPokemon = mappedPokemon.filter(
-        //     (p) => p.type === idPokemon
-        //   );
-        //   setPokemonData(filtersPokemon);
-        // } else {
-        setPokemonData(mappedPokemon);
-        // }
+        if (idPokemon) {
+          const filtersPokemon = mappedPokemon.filter(
+            (p) => p.type === idPokemon
+          );
+          setPokemonData(filtersPokemon);
+        } else {
+          setPokemonData(mappedPokemon);
+        }
       } catch (error) {
         console.error("Hubo un poke-error haciendo el poke-fetch: ", error);
       }
     };
 
     fetchPokemonData();
-  }, []);
+  }, [idPokemon]);
 
   if (!pokemonData) {
     return <Loading />;
@@ -54,7 +54,7 @@ const ItemListContainer = () => {
   return (
     <Box maxW="75rem" mx="auto" mt="2.5rem" mb="5rem" as="section">
       <Heading as="h1" mb="3.75rem">
-        Listado de Pokemons
+        Listado de Pokemons {idPokemon ? `tipo: ${idPokemon}` : "total"}
       </Heading>
       <Grid
         templateColumns="repeat(4, 1fr)"
