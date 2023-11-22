@@ -20,7 +20,7 @@ const ItemDetail = ({ name, image, id, type }) => {
         variant="outline"
         justifyContent="center"
       >
-        <Image objectFit="cover" src={image} alt={name} />
+        <Image objectFit="cover" src={image} alt={name} w="150px" />
         <Stack>
           <CardBody>
             <Heading size="md" textTransform="capitalize" as="h2">
