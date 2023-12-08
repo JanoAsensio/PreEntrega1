@@ -10,6 +10,7 @@ import Loading from "../Loading/Loading";
 const ItemListContainer = () => {
   const [pokemonData, setPokemonData] = useState([]);
   const { idPokemon } = useParams();
+  const randomInt = Math.floor(Math.random() * 11);
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -26,6 +27,7 @@ const ItemListContainer = () => {
             name: pokemonDetails.name,
             image: pokemonDetails.sprites.front_default,
             type: pokemonDetails.types[0].type.name,
+            cantidad: randomInt,
           };
         });
 

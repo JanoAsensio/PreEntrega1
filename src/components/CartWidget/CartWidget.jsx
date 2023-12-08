@@ -1,31 +1,19 @@
 import { Button, Icon, Text } from "@chakra-ui/react";
 import { LuShoppingCart } from "react-icons/lu";
-import { useToast } from "@chakra-ui/react";
-import { useState } from "react";
+import { CartContext } from "../../context/CartContext";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 
 const CartWidget = () => {
-  const toast = useToast();
-  const [number, setNumber] = useState(0);
-  setNumber; //temporariamente desactivado..
+  const { cantidadTotal } = useContext(CartContext);
 
   return (
-    <Button
-      border="1px solid black"
-      bgColor="transparent"
-      gap="0.375rem"
-      onClick={() =>
-        toast({
-          title: "Esta es una notificación!",
-          description: "Mostrando un numero hardcodeado (fijo): '0'",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        })
-      }
-    >
-      <Icon as={LuShoppingCart} />
-      <Text>{number}</Text>
-    </Button>
+    <Link to={`/cart`}>
+      <Button border="1px solid black" bgColor="transparent" gap="0.375rem">
+        <Icon as={LuShoppingCart} />
+        <Text>{cantidadTotal}</Text>
+      </Button>
+    </Link>
   );
 };
 

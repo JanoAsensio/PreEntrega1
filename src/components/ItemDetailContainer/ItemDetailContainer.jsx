@@ -8,6 +8,7 @@ import Loading from "../Loading/Loading";
 const ItemDetailContainer = () => {
   const [pokemonData, setPokemonData] = useState(null);
   const { idPokemon } = useParams();
+  const randomInt = Math.floor(Math.random() * 11);
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -21,6 +22,7 @@ const ItemDetailContainer = () => {
           name: data.name,
           image: data.sprites.front_default,
           type: data.types[0].type.name,
+          cantidad: randomInt,
         });
       } catch (error) {
         console.error("Hubo un poke-error haciendo el poke-fetch: ", error);
@@ -40,6 +42,7 @@ const ItemDetailContainer = () => {
       image={pokemonData.image}
       id={pokemonData.id}
       type={pokemonData.type}
+      cantidad={pokemonData.cantidad}
     />
   );
 };
