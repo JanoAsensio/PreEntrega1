@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-const Item = ({ name, image, id }) => {
+const Item = ({ name, image, order }) => {
   return (
     <Card maxW="sm" alignItems="center">
       <CardBody>
@@ -21,13 +21,13 @@ const Item = ({ name, image, id }) => {
             Nombre: {name}
           </Heading>
           <Text color="blue.600" fontSize="2xl">
-            ID: {id}
+            Order: {order}
           </Text>
         </Stack>
       </CardBody>
       <Divider />
       <CardFooter>
-        <Link to={`/item/${id}`}>
+        <Link to={`/item/${order}`}>
           <Button variant="solid" bgColor="#3d7dca" color="#fff">
             Ir a la pagina
           </Button>

@@ -7,46 +7,72 @@ import { useParams } from "react-router-dom";
 import Item from "../Item/Item";
 import Loading from "../Loading/Loading";
 
+// Firebase:
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+  orderBy,
+} from "firebase/firestore";
+
 const ItemListContainer = () => {
   const [pokemonData, setPokemonData] = useState([]);
   const { idPokemon } = useParams();
-  const randomInt = Math.floor(Math.random() * 11);
 
   useEffect(() => {
-    const fetchPokemonData = async () => {
-      try {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-        const data = await response.json();
+    const db = getFirestore();
 
-        const promises = data.results.map(async (pokemon) => {
-          const response = await fetch(pokemon.url);
-          const pokemonDetails = await response.json();
+    const pokemons = idPokemon
+      ? query(
+          collection(db, "pokemons"),
+          where("type", "==", idPokemon),
+          orderBy("order", "asc")
+        )
+      : query(collection(db, "pokemons"), orderBy("order", "asc"));
 
-          return {
-            id: pokemonDetails.id,
-            name: pokemonDetails.name,
-            image: pokemonDetails.sprites.front_default,
-            type: pokemonDetails.types[0].type.name,
-            cantidad: randomInt,
-          };
+    getDocs(pokemons)
+      .then((res) => {
+        const newPokemons = res.docs.map((doc) => {
+          const data = doc.data();
+          return { id: doc.id, ...data };
         });
+        setPokemonData(newPokemons);
+      })
+      .catch((error) =>
+        console.error("Hubo un poke-error haciendo el poke-fetch: ", error)
+      );
 
-        const mappedPokemon = await Promise.all(promises);
-
-        if (idPokemon) {
-          const filtersPokemon = mappedPokemon.filter(
-            (p) => p.type === idPokemon
-          );
-          setPokemonData(filtersPokemon);
-        } else {
-          setPokemonData(mappedPokemon);
-        }
-      } catch (error) {
-        console.error("Hubo un poke-error haciendo el poke-fetch: ", error);
-      }
-    };
-
-    fetchPokemonData();
+    // const fetchPokemonData = async () => {
+    //   try {
+    //     const response = await fetch("https://pokeapi.co/api/v2/pokemon");
+    //     const data = await response.json();
+    //     const promises = data.results.map(async (pokemon) => {
+    //       const response = await fetch(pokemon.url);
+    //       const pokemonDetails = await response.json();
+    //       return {
+    //         id: pokemonDetails.id,
+    //         name: pokemonDetails.name,
+    //         image: pokemonDetails.sprites.front_default,
+    //         type: pokemonDetails.types[0].type.name,
+    //         cantidad: randomInt,
+    //       };
+    //     });
+    //     const mappedPokemon = await Promise.all(promises);
+    //     if (idPokemon) {
+    //       const filtersPokemon = mappedPokemon.filter(
+    //         (p) => p.type === idPokemon
+    //       );
+    //       setPokemonData(filtersPokemon);
+    //     } else {
+    //       setPokemonData(mappedPokemon);
+    //     }
+    //   } catch (error) {
+    //     console.error("Hubo un poke-error haciendo el poke-fetch: ", error);
+    //   }
+    // };
+    // fetchPokemonData();
   }, [idPokemon]);
 
   if (!pokemonData) {
@@ -65,7 +91,11 @@ const ItemListContainer = () => {
       >
         {pokemonData.map((pokemon, index) => (
           <GridItem rowSpan={2} colSpan={1} w="100%" key={index}>
-            <Item name={pokemon.name} image={pokemon.image} id={pokemon.id} />
+            <Item
+              name={pokemon.name}
+              image={pokemon.image}
+              order={pokemon.order}
+            />
           </GridItem>
         ))}
       </Grid>

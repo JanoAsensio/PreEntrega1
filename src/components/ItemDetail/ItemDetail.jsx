@@ -54,7 +54,9 @@ const ItemDetail = ({ name, image, id, type, cantidad }) => {
         {quantity == 0 && cantidad != 0 ? (
           <ItemCount initial={1} stock={cantidad} onAdd={onAdd} />
         ) : (
-          <Link to={"/Cart"}> Poke-ir al carrito </Link>
+          <Link to={"/Cart"}>
+            <Button colorScheme="facebook">Poke-ir al carrito </Button>
+          </Link>
         )}
       </Card>
       <Link to="/">
@@ -64,7 +66,7 @@ const ItemDetail = ({ name, image, id, type, cantidad }) => {
           variant="outline"
           mt="20px"
         >
-          Poke-volver
+          Poke-volver a la home
         </Button>
       </Link>
     </Box>

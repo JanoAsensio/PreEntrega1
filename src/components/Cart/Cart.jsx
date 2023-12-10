@@ -6,14 +6,18 @@ import CartCard from "../CartCard/CartCard";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const Cart = () => {
-  const { cart, cleanCart } = useContext(CartContext);
+  const { cart, cleanCart, cantidadTotal } = useContext(CartContext);
 
   const toast = useToast();
 
   return (
-    <Flex flexDir="column" py="20px" pl="40px" as="article">
-      <Heading as="h1">Tu carrito</Heading>
-
+    <Flex flexDir="column" p="48px" as="article" gap="48px">
+      <Flex flexDir="column">
+        <Heading as="h1">Tu carrito.</Heading>
+        <Heading as="h2">
+          Cantidad de pokemons atrapados: {cantidadTotal}
+        </Heading>
+      </Flex>
       {cart.length > 0 ? (
         <>
           <SimpleGrid
@@ -33,22 +37,29 @@ const Cart = () => {
               );
             })}
           </SimpleGrid>
-          <Button
-            mt="24px"
-            onClick={() => {
-              cleanCart();
-              toast({
-                title: "Liberaste a todos los pokemons que habias atrapado!",
-                description:
-                  "Te felicito, los pokemons no deben ser esclavizados",
-                status: "success",
-                duration: 9000,
-                isClosable: true,
-              });
-            }}
-          >
-            Poke-liberar todos los pokemons!
-          </Button>
+          <Flex flexDir="column" gap="8px" maxW="450px" mx="auto">
+            <Link to={"/Checkout"}>
+              <Button colorScheme="cyan">
+                Poke-llevar los pokemons al hospital para curar!
+              </Button>
+            </Link>
+            <Button
+              colorScheme="green"
+              onClick={() => {
+                cleanCart();
+                toast({
+                  title: "Liberaste a todos los pokemons que habias atrapado!",
+                  description:
+                    "Te felicito, los pokemons no deben ser esclavizados",
+                  status: "success",
+                  duration: 9000,
+                  isClosable: true,
+                });
+              }}
+            >
+              Poke-liberar todos los pokemons!
+            </Button>
+          </Flex>
         </>
       ) : (
         <Flex flexDir="column" mt="12px" gap="12px">
@@ -60,7 +71,7 @@ const Cart = () => {
               variant="outline"
               mt="20px"
             >
-              Poke-volver
+              Poke-volver a la home
             </Button>
           </Link>
         </Flex>
