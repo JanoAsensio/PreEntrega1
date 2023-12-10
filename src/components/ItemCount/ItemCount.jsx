@@ -22,7 +22,7 @@ const ItemCount = ({ initial, stock, onAdd }) => {
   return (
     <Box>
       <Flex gap="8px" alignItems="center">
-        <Button onClick={decrement}>Poke-sacar 1</Button>
+        <Button onClick={decrement}>Sacar 1</Button>
         <Flex
           alignItems="center"
           justifyContent="center"
@@ -33,7 +33,7 @@ const ItemCount = ({ initial, stock, onAdd }) => {
         >
           <Text fontWeight="bold">{count}</Text>
         </Flex>
-        <Button onClick={increment}>Poke-agregar 1</Button>
+        <Button onClick={increment}>Agregar 1</Button>
       </Flex>
       <Button mt="8px" onClick={addToCart} colorScheme="blue" w="full">
         Atrapalo ya!

@@ -23,7 +23,7 @@ const ItemDetailContainer = () => {
         setPokemonData(newPokemon);
       })
       .catch((error) =>
-        console.error("Hubo un poke-error haciendo el poke-fetch: ", error)
+        console.error("Hubo un error haciendo el fetch: ", error)
       );
   }, [idPokemon]);
 

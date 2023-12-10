@@ -23,7 +23,7 @@ const Loading = () => {
         <Image
           className="pokeball"
           src="/pokebola.png"
-          alt="poke-loading"
+          alt="loading"
           h="2.5rem"
           w="2.5rem"
         />
