@@ -40,7 +40,7 @@ const Cart = () => {
           <Flex flexDir="column" gap="8px" maxW="450px" mx="auto">
             <Link to={"/Checkout"}>
               <Button colorScheme="cyan">
-                Poke-llevar los pokemons al hospital para curar!
+                Llevar los pokemons al hospital para curar!
               </Button>
             </Link>
             <Button
@@ -57,7 +57,7 @@ const Cart = () => {
                 });
               }}
             >
-              Poke-liberar todos los pokemons!
+              Liberar todos los pokemons!
             </Button>
           </Flex>
         </>
@@ -71,7 +71,7 @@ const Cart = () => {
               variant="outline"
               mt="20px"
             >
-              Poke-volver a la home
+              Volver a la home
             </Button>
           </Link>
         </Flex>

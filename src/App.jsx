@@ -14,30 +14,9 @@ import { CartProvider } from "./context/CartContext";
 // Librarys:
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cart from "./components/Cart/Cart";
-import React, { useState, useEffect } from "react";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  query,
-  orderBy,
-} from "firebase/firestore";
+import React from "react";
 
 function App() {
-  // const [pokemons, setPokemons] = useState([]);
-
-  // useEffect(() => {
-  //   const db = getFirestore();
-  //   const qry = query(collection(db, "pokemons"), orderBy("order", "asc"));
-
-  //   getDocs(qry).then((snapshot) => {
-  //     if (snapshot.size == 0) {
-  //       console.log("no hay resultados");
-  //     }
-  //     setPokemons(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-  //   });
-  // }, []);
-
   return (
     <BrowserRouter>
       <CartProvider>
